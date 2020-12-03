@@ -51,14 +51,13 @@ pipeline{
             environment {
                 VOLUME = 'fb8ce7f715477876311001c19dc6191964b3ad0e00404a62ef698969aaf28a29'
                 DIR = '$(pwd)/sources'
+                PWD = '$(pwd)'
                 IMAGE = 'cdrx/pyinstaller-linux:python2'
             }
             steps {
                 dir(path: env.BUILD_ID) {
                     unstash(name: 'compiled-results')
-                    sh 'docker run --rm -w ${DIR} --volumes-from ${VOLUME} ${IMAGE} '
-                    sh 'pwd'
-                    sh 'pyinstaller -F add2vals.py'
+                    sh "docker run --rm -v '$(pwd):/src/' ${IMAGE} 'pyinstaller -F add2vals.py' "
                 }
             }
             post {
