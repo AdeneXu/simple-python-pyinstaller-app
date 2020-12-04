@@ -50,8 +50,7 @@ pipeline{
             agent any
             environment {
                 VOLUME = 'fb8ce7f715477876311001c19dc6191964b3ad0e00404a62ef698969aaf28a29'
-                DIR = '$(pwd)/sources'
-                PWD = '$(pwd)'
+                DIR = '$(pwd)/sources/'
                 IMAGE = 'cdrx/pyinstaller-linux:python2'
             }
             steps {
