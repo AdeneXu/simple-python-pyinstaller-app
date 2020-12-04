@@ -12,7 +12,7 @@ pipeline{
             }
             steps{
                 sh 'python -m py_compile sources/add2vals.py sources/calc.py'
-                stash(name: 'compiled-results', includes: 'sources/*.py*')
+                //stash(name: 'compiled-results', includes: 'sources/*.py*')
             }
         }
         stage('Test'){
@@ -29,38 +29,15 @@ pipeline{
                     junit 'test-reports/results.xml'
                 }
             }
-        }
-        stage('Deliver'){
-            agent any
-            environment{
-                 VOLUME = '/home/yating/jenkins/jenkins_data/workspace/pythonDemo/sources:/src'
-                 IMAGE = 'cdrx/pyinstaller-linux:python2'
-            }
-            steps{
-                dir(path:env.BUILD_ID){
-                   unstash(name:'compiled-results')
-                   sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F add2vals.py'"
-                }
-            }
-            post{
-                success{
-                    archiveArtifacts 'sources/dist/add2vals'
-                }
-            }
-        }
 
- /**         stage('Deliver') {
+       stage('Deliver') {
             agent any
             environment {
-                VOLUME = 'fb8ce7f715477876311001c19dc6191964b3ad0e00404a62ef698969aaf28a29'
                 DIR = '/home/yating/jenkins/jenkins_data/workspace/pythonDemo/sources'
                 IMAGE = 'cdrx/pyinstaller-linux:python2'
             }
             steps {
-                dir(path: env.BUILD_ID) {
-                    unstash(name: 'compiled-results')
                     sh "docker run --rm -v ${DIR}:/src/ ${IMAGE} 'pyinstaller -F add2vals.py'"
-                }
             }
             post {
                 success {
@@ -68,6 +45,6 @@ pipeline{
 //                     sh "docker run --rm ${IMAGE} 'rm -rf build dist'"
                 }
             }
-        }*/
+        }
     }
 }
