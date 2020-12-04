@@ -44,7 +44,7 @@ pipeline{
             }
             post{
                 success{
-                    archiveArtifacts '${Build}/sources/dist/add2vals'
+                    archiveArtifacts 'sources/dist/add2vals'
                 }
             }
         }
