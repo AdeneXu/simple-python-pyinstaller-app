@@ -61,7 +61,7 @@ pipeline{
             }
             post {
                 success {
-                    archiveArtifacts "dist/add2vals"
+                    archiveArtifacts "sources/dist/add2vals"
 //                     sh "docker run --rm ${IMAGE} 'rm -rf build dist'"
                 }
             }
