@@ -30,23 +30,23 @@ pipeline{
                 }
             }
         }
-//         stage('Deliver'){
-//             agent{
-//                 docker{
-//                     image 'cdrx/pyinstaller-linux:python2'
-//                 }
-//             }
-//             steps{
-//                 sh 'pyinstaller --onefile sources/add2vals.py'
-//             }
-//             post{
-//                 success{
-//                     archiveArtifacts 'dist/add2vals'
-//                 }
-//             }
-//         }
+        stage('Deliver'){
+            agent{
+                docker{
+                    image 'cdrx/pyinstaller-linux:python2'
+                }
+            }
+            steps{
+                sh 'pyinstaller --onefile sources/add2vals.py'
+            }
+            post{
+                success{
+                    archiveArtifacts 'dist/add2vals'
+                }
+            }
+        }
 
-          stage('Deliver') {
+ /**         stage('Deliver') {
             agent any
             environment {
                 VOLUME = 'fb8ce7f715477876311001c19dc6191964b3ad0e00404a62ef698969aaf28a29'
@@ -65,6 +65,6 @@ pipeline{
 //                     sh "docker run --rm ${IMAGE} 'rm -rf build dist'"
                 }
             }
-        }
+        }*/
     }
 }
